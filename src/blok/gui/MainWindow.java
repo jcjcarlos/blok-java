@@ -21,12 +21,7 @@ public class MainWindow extends javax.swing.JFrame {
      * Creates new form MainWindow
      */
     public MainWindow() {
-        initializeMainPanel();
-    }
-    
-    private void initializeMainPanel(){
-        initComponents();
-        loadPlugins();
+    	initComponents();
         Dimension size = new Dimension(1000, 600);
 
         mainPanel = new MainPanel(factory);
@@ -45,7 +40,6 @@ public class MainWindow extends javax.swing.JFrame {
         //simulator.start();
     }
     
- 
 	@SuppressWarnings("deprecation")
     private void loadPlugins() {
         try {
@@ -111,6 +105,8 @@ public class MainWindow extends javax.swing.JFrame {
         setJMenuBar(jMenuBar1);
 
         pack();
+        
+        loadPlugins();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -123,7 +119,7 @@ public class MainWindow extends javax.swing.JFrame {
               System.out.println(nomeClasse);
             IThemeFactory factory = (IThemeFactory)Class.forName("blok."+nomeClasse.toLowerCase()
             +"."+nomeClasse,true,ulc).newInstance();
-            
+            initComponents();
         }catch(ClassNotFoundException e){
             System.out.println(e);
         } catch (InstantiationException e) {
