@@ -1,8 +1,6 @@
 package blok.gui;
 
 import blok.AbstractFactory.*;
-import blok.salvadorfactory.*;
-import blok.salvadorfactory.SalvadorFactory;
 import blok.simulator.Simulator;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -14,7 +12,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -42,7 +39,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         m_playerImage = player.getPlayer();
         playWav(sound.getSound(),-1);
     }
-
+    
     private void createProducts() {
     	this.background = factory.createBackGround();
     	this.ground = factory.createGround();
@@ -253,7 +250,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         }
         repaint();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

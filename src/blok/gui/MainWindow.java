@@ -21,11 +21,15 @@ public class MainWindow extends javax.swing.JFrame {
      * Creates new form MainWindow
      */
     public MainWindow() {
+        initializeMainPanel();
+    }
+    
+    private void initializeMainPanel(){
         initComponents();
         loadPlugins();
         Dimension size = new Dimension(1000, 600);
 
-        MainPanel mainPanel = new MainPanel(factory);
+        mainPanel = new MainPanel(factory);
         mainPanel.setPreferredSize(size);
         mainPanel.setMinimumSize(size);
         mainPanel.setMaximumSize(size);
@@ -35,7 +39,7 @@ public class MainWindow extends javax.swing.JFrame {
         setResizable(false);
         pack();
         
-        Simulator simulator = new Simulator(mainPanel);
+        simulator = new Simulator(mainPanel);
         mainPanel.setSimulator(simulator);
         simulator.init();
         //simulator.start();
@@ -43,32 +47,34 @@ public class MainWindow extends javax.swing.JFrame {
     
  
 	@SuppressWarnings("deprecation")
-	private void loadPlugins() {
-    	System.out.println("Chamou o metodo");
-    	try {
-    		System.out.println("Entrou no try");
-    		File currentDir = new File("./plugins");
-    		String[] plugins = currentDir.list();
-    		URL[] jars = new URL[plugins.length];
-    		javax.swing.JMenuItem[] menus = new javax.swing.JMenuItem[plugins.length];
-    		for(int i = 0; i < plugins.length; i++) {
-    			String classe = plugins[i].split("\\.")[0];
-    			System.out.println(i+1 + " - " + classe);
-    			menus[i] = new javax.swing.JMenuItem();
-    			menus[i].setText(classe);
-    			this.jMenu1.add(menus[i]);
-    			jars[i] = (new File("./plugins/"+ plugins[i])).toURL();
-    		}
-    		URLClassLoader ulc = new URLClassLoader(jars);
-    		String nomeClasse = plugins[1].split("\\.")[0];
-    		IThemeFactory factory = (IThemeFactory)Class.forName("blok."+nomeClasse.toLowerCase()
-    				+"."+nomeClasse,true,ulc).newInstance();
-    		this.factory = factory;
-    		
-    	} catch(Exception e) {
+    private void loadPlugins() {
+        try {
+            File currentDir = new File("./plugins");
+            String[] plugins = currentDir.list();
+            URL[] jars = new URL[plugins.length];
+            javax.swing.JMenuItem[] menus = new javax.swing.JMenuItem[plugins.length];
+            for(int i = 0; i < plugins.length; i++) {
+                    String classe = plugins[i].split("\\.")[0];
+                    System.out.println(i+1 + " - " + classe);
+                    menus[i] = new javax.swing.JMenuItem();
+                    menus[i].setText(classe);
+                           menus[i].addActionListener(new java.awt.event.ActionListener(){
+                               @Override
+                               public void actionPerformed(java.awt.event.ActionEvent evt){
+                                   jMenusActionPerformed(evt);
+                               }
+                           });
+                    this.jMenu1.add(menus[i]);
+                    jars[i] = (new File("./plugins/"+ plugins[i])).toURL();
+            }
+            this.ulc = new URLClassLoader(jars);
+            String nomeClasse = plugins[0].split("\\.")[0];
+            this.factory = (IThemeFactory)Class.forName("blok."+nomeClasse.toLowerCase()
+            +"."+nomeClasse,true,ulc).newInstance();
+            } catch(Exception e) {
     		System.out.println(e);
-    	}
-    }
+            }
+         }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -108,9 +114,24 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        System.out.println(evt.getActionCommand());
+        // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
     
+    private void jMenusActionPerformed(java.awt.event.ActionEvent evt){
+        try{
+            String nomeClasse = evt.getActionCommand();
+              System.out.println(nomeClasse);
+            IThemeFactory factory = (IThemeFactory)Class.forName("blok."+nomeClasse.toLowerCase()
+            +"."+nomeClasse,true,ulc).newInstance();
+            
+        }catch(ClassNotFoundException e){
+            System.out.println(e);
+        } catch (InstantiationException e) {
+            System.out.println(e);
+        } catch (IllegalAccessException e) {
+            System.out.println(e);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
@@ -119,4 +140,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     // End of variables declaration//GEN-END:variables
     private IThemeFactory factory;
+    private URLClassLoader ulc;
+    private MainPanel mainPanel;
+    Simulator simulator;
 }
