@@ -50,13 +50,13 @@ public class MainWindow extends javax.swing.JFrame {
     		File currentDir = new File("./plugins");
     		String[] plugins = currentDir.list();
     		URL[] jars = new URL[plugins.length];
-    		javax.swing.JMenu[] menus = new javax.swing.JMenu[plugins.length];
+    		javax.swing.JMenuItem[] menus = new javax.swing.JMenuItem[plugins.length];
     		for(int i = 0; i < plugins.length; i++) {
     			String classe = plugins[i].split("\\.")[0];
     			System.out.println(i+1 + " - " + classe);
-    			menus[i] = new javax.swing.JMenu();
+    			menus[i] = new javax.swing.JMenuItem();
     			menus[i].setText(classe);
-    			this.jMenuBar1.add(menus[i]);
+    			this.jMenu1.add(menus[i]);
     			jars[i] = (new File("./plugins/"+ plugins[i])).toURL();
     		}
     		URLClassLoader ulc = new URLClassLoader(jars);
