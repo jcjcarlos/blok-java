@@ -11,6 +11,8 @@ import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 /**
  *
  * @author sandroandrade
@@ -21,6 +23,7 @@ public class MainWindow extends javax.swing.JFrame {
      * Creates new form MainWindow
      */
     public MainWindow() {
+    	loadPlugins();
     	initComponents();
         Dimension size = new Dimension(1000, 600);
 
@@ -34,7 +37,7 @@ public class MainWindow extends javax.swing.JFrame {
         setResizable(false);
         pack();
         
-        simulator = new Simulator(mainPanel);
+        Simulator simulator = new Simulator(mainPanel);
         mainPanel.setSimulator(simulator);
         simulator.init();
         //simulator.start();
@@ -44,31 +47,31 @@ public class MainWindow extends javax.swing.JFrame {
     private void loadPlugins() {
         try {
             File currentDir = new File("./plugins");
-            String[] plugins = currentDir.list();
+            this.plugins = currentDir.list();
             URL[] jars = new URL[plugins.length];
-            javax.swing.JMenuItem[] menus = new javax.swing.JMenuItem[plugins.length];
             for(int i = 0; i < plugins.length; i++) {
-                    String classe = plugins[i].split("\\.")[0];
-                    System.out.println(i+1 + " - " + classe);
-                    menus[i] = new javax.swing.JMenuItem();
-                    menus[i].setText(classe);
-                           menus[i].addActionListener(new java.awt.event.ActionListener(){
-                               @Override
-                               public void actionPerformed(java.awt.event.ActionEvent evt){
-                                   jMenusActionPerformed(evt);
-                               }
-                           });
-                    this.jMenu1.add(menus[i]);
-                    jars[i] = (new File("./plugins/"+ plugins[i])).toURL();
+            	jars[i] = (new File("./plugins/"+ plugins[i])).toURL();
             }
             this.ulc = new URLClassLoader(jars);
-            String nomeClasse = plugins[0].split("\\.")[0];
-            this.factory = (IThemeFactory)Class.forName("blok."+nomeClasse.toLowerCase()
-            +"."+nomeClasse,true,ulc).newInstance();
+            setFactory();
             } catch(Exception e) {
-    		System.out.println(e);
+            	System.out.println(e);
             }
          }
+	
+	private void setFactory() {
+          try {
+        	if(this.nomeClasse == null)
+        		this.nomeClasse = plugins[0].split("\\.")[0];
+         	this.factory = (IThemeFactory)Class.forName("blok."+this.nomeClasse.toLowerCase()+
+          					"."+this.nomeClasse,true,ulc).newInstance();
+         	if(this.factory!=null)
+         		this.mainPanel.setFactory(factory);
+          } catch(Exception e) {
+        	  System.out.println(e);
+          }
+          
+	}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,54 +82,54 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+    	jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-
+        
+ 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
-        jMenu1.setText("File");
-
-        jMenuItem1.setText("jMenuItem1");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
+        jMenu1.setText("Temas");
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Help");
+        jMenu2.setText("Opções");
         jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
-
-        pack();
+        jMenuItem1.setText("Atualizar temas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener(){
+        	@Override
+          	public void actionPerformed(java.awt.event.ActionEvent evt){
+               	jRefreshActionPerformed(evt);
+            }
+         });
+        jMenu2.add(jMenuItem1);
         
-        loadPlugins();
+        
+        jMenuItems2 = new javax.swing.JMenuItem[this.plugins.length];
+        for(int i=0;i<this.plugins.length;i++) {
+        	jMenuItems2[i] = new javax.swing.JMenuItem();
+        	jMenuItems2[i].setText(this.plugins[i].split("\\.")[0]);
+        	jMenuItems2[i].addActionListener(new java.awt.event.ActionListener(){
+            	@Override
+              	public void actionPerformed(java.awt.event.ActionEvent evt){
+                   	jMenusActionPerformed(evt);
+                }
+             });
+        	jMenu1.add(jMenuItems2[i]);
+        }
+        setJMenuBar(jMenuBar1);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
     
     private void jMenusActionPerformed(java.awt.event.ActionEvent evt){
-        try{
-            String nomeClasse = evt.getActionCommand();
-              System.out.println(nomeClasse);
-            IThemeFactory factory = (IThemeFactory)Class.forName("blok."+nomeClasse.toLowerCase()
-            +"."+nomeClasse,true,ulc).newInstance();
-            initComponents();
-        }catch(ClassNotFoundException e){
-            System.out.println(e);
-        } catch (InstantiationException e) {
-            System.out.println(e);
-        } catch (IllegalAccessException e) {
-            System.out.println(e);
-        }
+    	this.nomeClasse = evt.getActionCommand();
+    	setFactory();
+    }
+    
+    private void jRefreshActionPerformed(java.awt.event.ActionEvent evt){
+    	loadPlugins();
+        initComponents();      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -134,9 +137,12 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem[] jMenuItems2;
+    
     // End of variables declaration//GEN-END:variables
-    private IThemeFactory factory;
+    private IThemeFactory factory = null;
     private URLClassLoader ulc;
     private MainPanel mainPanel;
-    Simulator simulator;
+    String[] plugins;
+    String nomeClasse;
 }

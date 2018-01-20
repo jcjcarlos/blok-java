@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -45,8 +46,11 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
     	this.ground = factory.createGround();
     	this.brick = factory.createBrick();
     	this.player = factory.createPlayer();
+    	this.m_playerImage = player.getPlayer();
     	this.sound = factory.createSound();
     }
+    
+      
     final void playWav(final String wavfile ,final int times) {
         (new Thread(new Runnable() {
         @Override
@@ -71,6 +75,11 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
     
     public void setSimulator(Simulator simulator) {
         m_simulator = simulator;
+    }
+    
+    public void setFactory(IThemeFactory factory) {
+    	this.factory = factory;
+    	this.createProducts();
     }
 
     @Override
@@ -169,7 +178,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D)g;
         Dimension size = getSize();
-        
+       
         g2d.drawImage(new ImageIcon(background.getBackGround()).getImage(), 0, 0, null);
         g2d.drawImage(new ImageIcon(ground.getGround()).getImage(), size.width/2-450, size.height/2-10+260, null);
 
@@ -264,7 +273,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-
+    
     private Simulator m_simulator;
     private HashMap<Body, Rectangle> m_bodyRect = new HashMap<Body, Rectangle>();
     private Rectangle m_player;
@@ -277,4 +286,5 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
     private IBrick brick;
     private IPlayer player;
     private ISound sound;
+   
 }
