@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-import blok.abstractFactory.IBackGround;
+import blok.interfaces.abstractFactory.IBackGround;
 
 public class BackGround implements IBackGround {
 	private static IBackGround background = null;

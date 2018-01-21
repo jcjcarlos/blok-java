@@ -2,7 +2,7 @@ package blok.defaultfactory;
 
 import java.io.File;
 
-import blok.abstractFactory.IBrick;
+import blok.interfaces.abstractFactory.IBrick;
 
 public class Brick implements IBrick {
 	private static IBrick brick = null;

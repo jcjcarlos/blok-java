@@ -1,5 +1,5 @@
 package blok.salvadorfactory;
-import blok.abstractFactory.*;
+import blok.interfaces.abstractFactory.*;
 
 public class SalvadorFactory implements IThemeFactory {
 

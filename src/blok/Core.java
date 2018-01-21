@@ -16,6 +16,18 @@ public class Core implements ICore {
 	}
 	
 	public void initialize() {
+		this.pluginController = PluginController.getInstance();
+		this.uiController = UIController.getInstance();
+		this.gameController = GameController.getInstance();
+		
+		this.pluginController.initialize();
+		this.uiController.initialize();
+		this.gameController.initialize();
+	}
+	
+	public void run() {
+		this.uiController.run();
+		this.gameController.run();
 	}
 	
 	public IGameController getGameController() {

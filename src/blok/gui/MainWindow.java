@@ -4,7 +4,8 @@
  */
 package blok.gui;
 
-import blok.abstractFactory.IThemeFactory;
+import blok.Core;
+import blok.interfaces.abstractFactory.IThemeFactory;
 import blok.simulator.Simulator;
 import java.awt.Dimension;
 import java.io.File;
@@ -22,12 +23,13 @@ public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
-    public MainWindow() {
-    	loadPlugins();
+    private MainWindow(MainPanel mainPanel) {
+    	//loadPlugins();
+    	this.plugins = Core.getInstance().getPluginController().getClassName();
     	initComponents();
         Dimension size = new Dimension(1000, 600);
 
-        mainPanel = MainPanel.getInstance(factory);
+        //mainPanel = MainPanel.getInstance(factory);
         mainPanel.setPreferredSize(size);
         mainPanel.setMinimumSize(size);
         mainPanel.setMaximumSize(size);
@@ -37,12 +39,18 @@ public class MainWindow extends javax.swing.JFrame {
         setResizable(false);
         pack();
         
-        Simulator simulator = new Simulator(mainPanel);
-        mainPanel.setSimulator(simulator);
-        simulator.init();
+        //Simulator simulator = Simulator.getInstance();
+        //mainPanel.setSimulator(simulator);
+        //simulator.init();
         //simulator.start();
     }
     
+    public static MainWindow getInstance(MainPanel mainPanel) {
+    	if(mainWindow == null)
+    		mainWindow = new MainWindow(mainPanel);
+    	return mainWindow;
+    }
+    /*
 	@SuppressWarnings("deprecation")
     private void loadPlugins() {
         try {
@@ -72,6 +80,7 @@ public class MainWindow extends javax.swing.JFrame {
           }
           
 	}
+	*/
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,13 +132,18 @@ public class MainWindow extends javax.swing.JFrame {
 
     
     private void jMenusActionPerformed(java.awt.event.ActionEvent evt){
-    	this.nomeClasse = evt.getActionCommand();
-    	setFactory();
+    	System.out.println("Botão clicado");
+    	this.factory = Core.getInstance().getPluginController().getClassFactory(evt.getActionCommand());
+    	Core.getInstance().getUIController().getMainPanel().setFactory(this.factory);
+    	System.out.println(factory);
+    	//setFactory();
     }
     
     private void jRefreshActionPerformed(java.awt.event.ActionEvent evt){
-    	loadPlugins();
-        initComponents();      
+    	//loadPlugins();
+    	Core.getInstance().getPluginController().initialize();
+    	this.plugins = Core.getInstance().getPluginController().getClassName();
+    	initComponents();      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -143,6 +157,7 @@ public class MainWindow extends javax.swing.JFrame {
     private IThemeFactory factory = null;
     private URLClassLoader ulc;
     private MainPanel mainPanel;
+    private static MainWindow mainWindow = null;
     String[] plugins;
     String nomeClasse;
 }

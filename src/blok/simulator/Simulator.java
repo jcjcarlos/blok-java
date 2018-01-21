@@ -24,8 +24,17 @@ import org.jbox2d.dynamics.contacts.Contact;
  */
 public class Simulator implements Runnable, ContactListener {
 
-    public Simulator(MainPanel mainPanel) {
-        m_mainPanel = mainPanel;
+    private Simulator() {
+    }
+    
+    public static Simulator getInstance() {
+    	if(simulator == null)
+    		simulator = new Simulator();
+    	return simulator;
+    }
+    
+    public void setMainPanel(MainPanel mainPanel) {
+    	m_mainPanel = mainPanel;
     }
     
     public void start() {
@@ -120,6 +129,7 @@ public class Simulator implements Runnable, ContactListener {
     private static int B2_VELOCITY_ITERATIONS = 8;
     private static int B2_POSITION_ITERATIONS = 4;
 
+    private static Simulator simulator = null;
     private MainPanel m_mainPanel;
     
     private final ScheduledExecutorService m_scheduler = Executors.newScheduledThreadPool(1);

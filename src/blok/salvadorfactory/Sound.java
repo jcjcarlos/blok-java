@@ -2,7 +2,7 @@ package blok.salvadorfactory;
 
 import java.io.File;
 
-import blok.abstractFactory.ISound;
+import blok.interfaces.abstractFactory.ISound;
 
 public class Sound implements ISound{
 	private static ISound sound = null;

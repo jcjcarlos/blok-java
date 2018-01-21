@@ -16,8 +16,8 @@ public class Blok {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.setVisible(true);
+               // MainWindow mainWindow = MainWindow.getInstance();
+                //mainWindow.setVisible(true);
             }
         });
     }

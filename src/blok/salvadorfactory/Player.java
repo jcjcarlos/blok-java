@@ -2,7 +2,7 @@ package blok.salvadorfactory;
 
 import java.io.File;
 
-import blok.abstractFactory.IPlayer;
+import blok.interfaces.abstractFactory.IPlayer;
 
 public class Player implements IPlayer {
 	private static IPlayer player = null;

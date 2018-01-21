@@ -1,5 +1,5 @@
 package blok.defaultfactory;
-import blok.abstractFactory.*;
+import blok.interfaces.abstractFactory.*;
 
 
 
