@@ -1,5 +1,7 @@
 package blok.AbstractFactory;
 
+import java.io.File;
+
 public interface IBrick {
-	public String getBrick();
+	public File getBrick();
 }

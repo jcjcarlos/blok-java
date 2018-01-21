@@ -1,7 +1,6 @@
-package blok.salvadorfactory;
+package blok.defaultfactory;
 
 import java.io.File;
-
 import blok.AbstractFactory.IBrick;
 
 public class Brick implements IBrick {
@@ -20,8 +19,8 @@ public class Brick implements IBrick {
 	@Override
 	public File getBrick() {
 		if(file == null)
-			file = new File("images/salvadorbrick.png");
+			file = new File("images/brick.png");
 		return file;
 	}
-
 }
+

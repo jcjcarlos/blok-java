@@ -1,5 +1,7 @@
 package blok.AbstractFactory;
 
+import java.io.File;
+
 public interface IPlayer {
-	public String getPlayer();
+	public File getPlayer();
 }

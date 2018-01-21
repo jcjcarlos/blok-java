@@ -9,7 +9,6 @@ package blok.gui;
  * @author sandroandrade
  */
 public class Blok {
-
     /**
      * @param args the command line arguments
      */

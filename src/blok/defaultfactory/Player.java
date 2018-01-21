@@ -1,6 +1,8 @@
-package blok.salvadorfactory;
+package blok.defaultfactory;
 
 import java.io.File;
+import java.util.Random;
+
 import blok.AbstractFactory.IPlayer;
 
 public class Player implements IPlayer {
@@ -19,7 +21,8 @@ public class Player implements IPlayer {
 	@Override
 	public File getPlayer() {
 		if(file == null)
-			file =  new File("images/salvadorplayer.png");
+			file =  new File("images/player" + Math.abs((new Random()).nextInt()%9) + ".png");
 		return file;
 	}
+
 }

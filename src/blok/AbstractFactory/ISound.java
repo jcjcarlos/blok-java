@@ -1,5 +1,7 @@
 package blok.AbstractFactory;
 
+import java.io.File;
+
 public interface ISound {
-	public String getSound();
+	public File getSound();
 }

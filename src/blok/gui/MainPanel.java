@@ -30,7 +30,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
     /**
      * Creates new form MainPanel
      */
-    public MainPanel(IThemeFactory factory) {
+    private MainPanel(IThemeFactory factory) {
     	this.factory = factory;
     	createProducts();
         initComponents();
@@ -38,7 +38,13 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         addMouseListener(this);
         addKeyListener(this);
         m_playerImage = player.getPlayer();
-        playWav(sound.getSound(),-1);
+        playWav();
+    }
+    
+    public static MainPanel getInstance(IThemeFactory factory) {
+    	if(mainPanel == null)
+    		mainPanel = new MainPanel(factory);
+    	return mainPanel;
     }
     
     private void createProducts() {
@@ -51,16 +57,16 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
     }
     
       
-    final void playWav(final String wavfile ,final int times) {
+    final void playWav() {
         (new Thread(new Runnable() {
         @Override
         public void run() {
             try {
                 System.out.println(AudioSystem.getMixerInfo()[1].getName());
                 Clip clip = AudioSystem.getClip();
-                AudioInputStream ais = AudioSystem.getAudioInputStream(new File(wavfile));
+                AudioInputStream ais = AudioSystem.getAudioInputStream(sound.getSound());
                 clip.open(ais);
-                clip.loop(times);
+                clip.loop(-1);
             } catch (MalformedURLException ex) {
                 Logger.getLogger(MainPanel.class.getName()).log(Level.SEVERE, null, ex);
             } catch (LineUnavailableException ex) {
@@ -179,14 +185,14 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
         Graphics2D g2d = (Graphics2D)g;
         Dimension size = getSize();
        
-        g2d.drawImage(new ImageIcon(background.getBackGround()).getImage(), 0, 0, null);
-        g2d.drawImage(new ImageIcon(ground.getGround()).getImage(), size.width/2-450, size.height/2-10+260, null);
+        g2d.drawImage(background.getBackGround(), 0, 0, null);
+        g2d.drawImage(ground.getGround(), size.width/2-450, size.height/2-10+260, null);
 
         for (Rectangle rect : m_bodyRect.values()) {
             if (rect != m_player) {
                 // Block
                 try {
-                    TexturePaint texturePaint = new TexturePaint(ImageIO.read(new File(brick.getBrick())), rect);
+                    TexturePaint texturePaint = new TexturePaint(ImageIO.read(brick.getBrick()), rect);
                     g2d.setPaint(texturePaint);
                 } catch (IOException ex) {
                     Logger.getLogger(Simulator.class.getName()).log(Level.SEVERE, null, ex);
@@ -195,7 +201,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
             else {
                 // Player
                 try {
-                    TexturePaint texturePaint = new TexturePaint(ImageIO.read(new File(m_playerImage)), rect);
+                    TexturePaint texturePaint = new TexturePaint(ImageIO.read(player.getPlayer()), rect);
                     g2d.setPaint(texturePaint);
                 } catch (IOException ex) {
                     Logger.getLogger(Simulator.class.getName()).log(Level.SEVERE, null, ex);
@@ -268,23 +274,24 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         setLayout(null);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
     
+    private static MainPanel mainPanel = null;
     private Simulator m_simulator;
     private HashMap<Body, Rectangle> m_bodyRect = new HashMap<Body, Rectangle>();
     private Rectangle m_player;
     public enum State {INITIAL, RUNNING, YOUWON, YOULOST};
     private State m_state = State.INITIAL;
-    private String m_playerImage;
+    private File m_playerImage;
     private IThemeFactory factory;
     private IBackGround background;
     private IGround ground;
     private IBrick brick;
     private IPlayer player;
     private ISound sound;
+   
    
 }

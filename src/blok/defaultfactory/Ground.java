@@ -1,4 +1,4 @@
-package blok.salvadorfactory;
+package blok.defaultfactory;
 
 import java.awt.Image;
 
@@ -22,7 +22,7 @@ public class Ground implements IGround {
 	@Override
 	public Image getGround() {
 		if(imageicon == null)
-			imageicon = new ImageIcon("images/salvadorground.png").getImage();
+			imageicon = new ImageIcon("images/ground.png").getImage();
 		return imageicon;
 	}
 

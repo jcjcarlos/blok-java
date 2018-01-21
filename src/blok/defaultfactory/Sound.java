@@ -1,6 +1,7 @@
-package blok.salvadorfactory;
+package blok.defaultfactory;
 
 import java.io.File;
+
 import blok.AbstractFactory.ISound;
 
 public class Sound implements ISound{
@@ -19,7 +20,7 @@ public class Sound implements ISound{
 	@Override
 	public File getSound() {
 		if(file == null)
-			file = new File("sounds/salvadorbackground.wav");
+			file = new File("sounds/background.wav");
 		return file;
 	}
 

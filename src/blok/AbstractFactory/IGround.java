@@ -1,5 +1,7 @@
 package blok.AbstractFactory;
 
+import java.awt.Image;
+
 public interface IGround {
-	public String getGround();
+	public Image getGround();
 }

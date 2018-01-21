@@ -1,9 +1,7 @@
-package blok.salvadorfactory;
+package blok.defaultfactory;
 
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
-
 import blok.AbstractFactory.IBackGround;
 
 public class BackGround implements IBackGround {
@@ -21,7 +19,7 @@ public class BackGround implements IBackGround {
 	@Override
 	public Image getBackGround() {
 		if(image == null)
-			image = new ImageIcon("images/salvadorbackground.png").getImage();
+			image = new ImageIcon("images/background.png").getImage();
 		return image;
 	}
 

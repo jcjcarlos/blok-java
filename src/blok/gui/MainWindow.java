@@ -27,7 +27,7 @@ public class MainWindow extends javax.swing.JFrame {
     	initComponents();
         Dimension size = new Dimension(1000, 600);
 
-        mainPanel = new MainPanel(factory);
+        mainPanel = MainPanel.getInstance(factory);
         mainPanel.setPreferredSize(size);
         mainPanel.setMinimumSize(size);
         mainPanel.setMaximumSize(size);

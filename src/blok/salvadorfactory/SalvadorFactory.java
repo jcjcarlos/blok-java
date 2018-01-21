@@ -1,40 +1,35 @@
 package blok.salvadorfactory;
-import blok.AbstractFactory.IBackGround;
-import blok.AbstractFactory.IBrick;
-import blok.AbstractFactory.IGround;
-import blok.AbstractFactory.IPlayer;
-import blok.AbstractFactory.ISound;
-import blok.AbstractFactory.IThemeFactory;
+import blok.AbstractFactory.*;
 
 public class SalvadorFactory implements IThemeFactory {
 
 	@Override
 	public IBackGround createBackGround() {
-		return new BackGround();
+		return BackGround.getInstance();
 	}
 
 	@Override
 	public IGround createGround() {
 		// TODO Auto-generated method stub
-		return new Ground();
+		return Ground.getInstance();
 	}
 
 	@Override
 	public IBrick createBrick() {
 		// TODO Auto-generated method stub
-		return new Brick();
+		return Brick.getInstance();
 	}
 
 	@Override
 	public ISound createSound() {
 		// TODO Auto-generated method stub
-		return new Sound();
+		return Sound.getInstance();
 	}
 
 	@Override
 	public IPlayer createPlayer() {
 		// TODO Auto-generated method stub
-		return new Player();
+		return Player.getInstance();
 	}
 
 }
