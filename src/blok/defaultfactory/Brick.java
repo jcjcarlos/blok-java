@@ -1,7 +1,8 @@
 package blok.defaultfactory;
 
 import java.io.File;
-import blok.AbstractFactory.IBrick;
+
+import blok.abstractFactory.IBrick;
 
 public class Brick implements IBrick {
 	private static IBrick brick = null;

@@ -4,7 +4,7 @@
  */
 package blok.gui;
 
-import blok.AbstractFactory.IThemeFactory;
+import blok.abstractFactory.IThemeFactory;
 import blok.simulator.Simulator;
 import java.awt.Dimension;
 import java.io.File;

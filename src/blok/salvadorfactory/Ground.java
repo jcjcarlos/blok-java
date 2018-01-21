@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-import blok.AbstractFactory.IGround;
+import blok.abstractFactory.IGround;
 
 public class Ground implements IGround {
 	private static IGround ground = null;

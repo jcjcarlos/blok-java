@@ -3,7 +3,7 @@ package blok.defaultfactory;
 import java.io.File;
 import java.util.Random;
 
-import blok.AbstractFactory.IPlayer;
+import blok.abstractFactory.IPlayer;
 
 public class Player implements IPlayer {
 	private static IPlayer player = null;

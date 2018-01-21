@@ -1,6 +1,6 @@
 package blok.gui;
 
-import blok.AbstractFactory.*;
+import blok.abstractFactory.*;
 import blok.simulator.Simulator;
 import java.awt.*;
 import java.awt.event.KeyEvent;

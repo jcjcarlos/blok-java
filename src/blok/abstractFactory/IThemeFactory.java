@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package blok.AbstractFactory;
+package blok.abstractFactory;
 /**
  *
  * @author aluno

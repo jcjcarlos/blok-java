@@ -1,4 +1,4 @@
-package blok.AbstractFactory;
+package blok.abstractFactory;
 
 import java.io.File;
 

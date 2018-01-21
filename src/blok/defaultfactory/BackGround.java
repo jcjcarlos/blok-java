@@ -2,7 +2,8 @@ package blok.defaultfactory;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import blok.AbstractFactory.IBackGround;
+
+import blok.abstractFactory.IBackGround;
 
 public class BackGround implements IBackGround {
 	private static IBackGround background = null;
