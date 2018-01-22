@@ -54,12 +54,6 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
     	this.player = factory.createPlayer();
     	this.m_playerImage = player.getPlayer();
     	this.sound = factory.createSound();
-    	System.out.println(background);
-    	System.out.println(ground);
-    	System.out.println(brick);
-    	System.out.println(player);
-    	System.out.println(m_playerImage);
-    	System.out.println(sound);
     }
     
       
