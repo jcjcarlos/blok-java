@@ -10,34 +10,33 @@ public class UIController implements IUIController {
 	private static IUIController uIController = null;
 	private MainWindow mainWindow = null;
 	private MainPanel mainPanel = null;
-	
-	private UIController() {	
+
+	private UIController() {
 	}
-	
+
 	public static IUIController getInstance() {
-		if(uIController == null)
+		if (uIController == null)
 			uIController = new UIController();
 		return uIController;
 	}
-	
-	
+
 	public void initialize() {
-		if(mainPanel == null) {
+		if (mainPanel == null) {
 			mainPanel = MainPanel.getInstance(Core.getInstance().getPluginController().getClassFactory());
-			//mainPanel.setSimulator(Core.getInstance().getGameController().getSimulator());
+			// mainPanel.setSimulator(Core.getInstance().getGameController().getSimulator());
 		}
-		if(mainWindow == null) {
+		if (mainWindow == null) {
 			mainWindow = MainWindow.getInstance(mainPanel);
 			mainWindow.setVisible(true);
 		}
 	}
-	
+
 	public void run() {
-		if(mainPanel != null)
+		if (mainPanel != null)
 			mainPanel.setSimulator(Core.getInstance().getGameController().getSimulator());
 	}
 
-	public MainPanel getMainPanel(){
+	public MainPanel getMainPanel() {
 		return mainPanel;
 	}
 }
