@@ -53,8 +53,9 @@ public class AdapterSimulator implements ISimulator, Runnable, ContactListener {
 	@Override
 	public void run() {
 		m_world.step(B2_TIMESTEP, B2_VELOCITY_ITERATIONS, B2_POSITION_ITERATIONS);
-		m_mainPanel.bodiesUpdated(m_bodies);
-		//m_mainPanel.bodiesUpdated2(m_points);
+		// m_mainPanel.bodiesUpdated(m_bodies);
+		pointsUpdate(m_points);
+		m_mainPanel.pointsUpdated(m_points);
 	}
 
 	public void init() {
@@ -73,9 +74,9 @@ public class AdapterSimulator implements ISimulator, Runnable, ContactListener {
 				m_bodies.add(
 						createBody(-150.0f + 15 * i + 30 * j, -236.0f + 30 * i, 28.0f, 28.0f, true, 1.0f, 0.3f, 0.5f));
 				m_points.add(new AdapterPoint(-150.0f + 15 * i + 30 * j, -236.0f + 30 * i));
-				 //System.out.println(m_points.get(m_points.size()-1));
-				 //System.out.println(m_bodies.get(m_bodies.size()-1).getPosition().x
-				 //+" "+m_bodies.get(m_bodies.size()-1).getPosition().y);
+				// System.out.println(m_points.get(m_points.size()-1));
+				// System.out.println(m_bodies.get(m_bodies.size()-1).getPosition().x
+				// +" "+m_bodies.get(m_bodies.size()-1).getPosition().y);
 			}
 
 		// Player
@@ -86,8 +87,8 @@ public class AdapterSimulator implements ISimulator, Runnable, ContactListener {
 
 		m_points.add(new AdapterPoint(-150.0f + 15 * i + 30 * j, -236.0f + 30 * i + 14, true));
 
-		m_mainPanel.bodiesCreated(m_bodies);
-		//m_mainPanel.bodiesCreated2(m_points);
+		// m_mainPanel.bodiesCreated(m_bodies);
+		m_mainPanel.pointsCreated(m_points);
 	}
 
 	private Body createBody(float x, float y, float width, float height, boolean dynamic, float density, float friction,
@@ -122,15 +123,23 @@ public class AdapterSimulator implements ISimulator, Runnable, ContactListener {
 	public void removeBody(AdapterPoint point) {
 		removeBody(getBody(point));
 	}
-	
+
 	private Body getBody(AdapterPoint point) {
-			for(int i = 0;i<m_points.size();i++)
-				if(m_points.get(i).equals(point)) {
-					System.out.println("Body"+m_bodies.get(i).getPosition()+" Point"+m_points.get(i));
-					m_points.remove(i);
-					return m_bodies.get(i);
-				}
-			return null;
+		for (int i = 0; i < m_points.size(); i++)
+			if (m_points.get(i).equals(point)) {
+				Body temp = m_bodies.get(i);
+				m_points.remove(i);
+				return temp;
+			}
+		return null;
+	}
+
+	private void pointsUpdate(ArrayList<AdapterPoint> m_points) {
+		for (int i = 0; i < m_bodies.size(); i++) {
+			m_points.get(i).setX(m_bodies.get(i).getPosition().x);
+			m_points.get(i).setY(m_bodies.get(i).getPosition().y);
+		}
+
 	}
 
 	@Override

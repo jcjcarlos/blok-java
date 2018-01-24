@@ -1,6 +1,7 @@
 package blok.gui;
 
 import blok.adapter.AdapterPoint;
+import blok.adapter.ISimulator;
 import blok.interfaces.abstractFactory.*;
 import blok.simulator.AdapterSimulator;
 import java.awt.*;
@@ -79,7 +80,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 		})).start();
 	}
 
-	public void setSimulator(AdapterSimulator simulator) {
+	public void setSimulator(ISimulator simulator) {
 		m_simulator = simulator;
 	}
 
@@ -87,7 +88,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 		this.factory = factory;
 		this.createProducts();
 	}
-
+	/*
 	public void mouseReleased(MouseEvent e) {
 		Body toBeRemoved = null;
 		for (Body body : m_bodyRect.keySet()) {
@@ -101,8 +102,8 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 		if (toBeRemoved != null)
 			m_bodyRect.remove(toBeRemoved);
 	}
-	
-	public void mouseReleased2(MouseEvent e) {
+	*/
+	public void mouseReleased(MouseEvent e) {
 		//System.out.println(e.getPoint());
 		AdapterPoint toBeRemoved = null;
 		for (AdapterPoint point : m_pointRect.keySet()) {
@@ -153,7 +154,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 			break;
 		}
 	}
-
+	/*
 	public void bodiesUpdated(ArrayList<Body> bodies) {
 		Dimension size = getSize();
 		for (Body body : bodies) {
@@ -170,14 +171,16 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 
 		repaint();
 	}
-	
-	public void bodiesUpdated2(ArrayList<AdapterPoint> points) {
+	*/
+	public void pointsUpdated(ArrayList<AdapterPoint> points) {
 		Dimension size = getSize();
 		for (AdapterPoint point : points) {
-			if (point.isPlayer())
+			 
+			if (point.isPlayer()) 
 				// Player
 				m_pointRect.get(point).setLocation(size.width / 2 - 28 + (int) point.getX(),
-						size.height / 2 - 28 - (int) point.getY());
+						size.height / 2 - 28 - (int) point.getY()); 
+				//System.out.println((int)point.getX()+""+point.isPlayer()+"/"+(int)point.getY()+" "+point.isPlayer());}
 			else
 				// Block
 				m_pointRect.get(point).setLocation(size.width / 2 - 14 + (int) point.getX(),
@@ -186,7 +189,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 
 		repaint();
 	}
-
+	/*
 	public void bodiesCreated(ArrayList<Body> bodies) {
 		m_bodyRect.clear();
 		Dimension size = getSize();
@@ -207,8 +210,8 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 		}
 		repaint();
 	}
-
-	public void bodiesCreated2(ArrayList<AdapterPoint> points) {
+	*/
+	public void pointsCreated(ArrayList<AdapterPoint> points) {
 		m_pointRect.clear();
 		Dimension size = getSize();
 		for (AdapterPoint point : points) {
@@ -239,7 +242,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 		g2d.drawImage(background.getBackGround(), 0, 0, null);
 		g2d.drawImage(ground.getGround(), size.width / 2 - 450, size.height / 2 - 10 + 260, null);
 
-		for (Rectangle rect : m_bodyRect.values()) {
+		for (Rectangle rect : m_pointRect.values()) {
 			if (rect != m_player) {
 				// Block
 				try {
@@ -326,7 +329,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 		// End of variables declaration//GEN-END:variables
 
 	private static MainPanel mainPanel = null;
-	private AdapterSimulator m_simulator;
+	private ISimulator m_simulator;
 	private HashMap<Body, Rectangle> m_bodyRect = new HashMap<Body, Rectangle>();
 	private HashMap<AdapterPoint, Rectangle> m_pointRect = new HashMap<AdapterPoint, Rectangle>();
 	private Rectangle m_player;
