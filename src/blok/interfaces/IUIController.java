@@ -1,7 +1,7 @@
 package blok.interfaces;
 
 import blok.gui.MainPanel;
-import blok.simulator.Simulator;
+import blok.simulator.AdapterSimulator;
 
 public interface IUIController {
 	public void initialize();

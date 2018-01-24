@@ -6,7 +6,7 @@ package blok.gui;
 
 import blok.Core;
 import blok.interfaces.abstractFactory.IThemeFactory;
-import blok.simulator.Simulator;
+import blok.simulator.AdapterSimulator;
 import java.awt.Dimension;
 import java.io.File;
 import java.net.URL;

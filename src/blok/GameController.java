@@ -2,11 +2,11 @@ package blok;
 
 import blok.gui.MainPanel;
 import blok.interfaces.IGameController;
-import blok.simulator.Simulator;
+import blok.simulator.AdapterSimulator;
 
 public class GameController implements IGameController {
 	private static IGameController gameController = null;
-	private Simulator simulator = null;
+	private AdapterSimulator simulator = null;
 
 	private GameController() {
 	}
@@ -19,7 +19,7 @@ public class GameController implements IGameController {
 
 	public void initialize() {
 		if (simulator == null)
-			simulator = Simulator.getInstance();
+			simulator = AdapterSimulator.getInstance();
 	}
 
 	public void run() {
@@ -28,7 +28,7 @@ public class GameController implements IGameController {
 		simulator.init();
 	}
 
-	public Simulator getSimulator() {
+	public AdapterSimulator getSimulator() {
 		return this.simulator;
 	}
 }

@@ -4,7 +4,7 @@ import blok.gui.MainPanel;
 import blok.gui.MainWindow;
 import blok.interfaces.IUIController;
 import blok.interfaces.abstractFactory.IThemeFactory;
-import blok.simulator.Simulator;
+import blok.simulator.AdapterSimulator;
 
 public class UIController implements IUIController {
 	private static IUIController uIController = null;

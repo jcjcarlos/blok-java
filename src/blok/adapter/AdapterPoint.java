@@ -5,6 +5,18 @@ public class AdapterPoint {
 	private float y;
 	private boolean player = false;
 
+	public AdapterPoint(float x,float y) {
+		this.setX(x);
+		this.setY(y);
+		this.setPlayer(false);
+	}
+	
+	public AdapterPoint(float x,float y,boolean isPlayer) {
+		this.setX(x);
+		this.setY(y);
+		this.setPlayer(isPlayer);
+	}
+	
 	public boolean isPlayer() {
 		return player;
 	}
@@ -27,6 +39,10 @@ public class AdapterPoint {
 
 	public void setY(float y) {
 		this.y = y;
+	}
+	
+	public String toString() {
+		return this.getX()+" "+this.getY();
 	}
 
 }

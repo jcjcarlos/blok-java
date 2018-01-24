@@ -1,9 +1,9 @@
 package blok.interfaces;
 
-import blok.simulator.Simulator;
+import blok.simulator.AdapterSimulator;
 
 public interface IGameController {
 	public void initialize();
 	public void run();
-	public Simulator getSimulator();
+	public AdapterSimulator getSimulator();
 }
