@@ -27,14 +27,14 @@ import org.jbox2d.dynamics.contacts.Contact;
  *
  * @author sandroandrade
  */
-public class AdapterSimulator implements ISimulator, Runnable, ContactListener {
+public class Box2dSimulator implements ISimulator, Runnable, ContactListener {
 
-	private AdapterSimulator() {
+	private Box2dSimulator() {
 	}
 
-	public static AdapterSimulator getInstance() {
+	public static Box2dSimulator getInstance() {
 		if (simulator == null)
-			simulator = new AdapterSimulator();
+			simulator = new Box2dSimulator();
 		return simulator;
 	}
 
@@ -168,7 +168,7 @@ public class AdapterSimulator implements ISimulator, Runnable, ContactListener {
 	private static int B2_VELOCITY_ITERATIONS = 8;
 	private static int B2_POSITION_ITERATIONS = 4;
 
-	private static AdapterSimulator simulator = null;
+	private static Box2dSimulator simulator = null;
 	private MainPanel m_mainPanel;
 
 	private final ScheduledExecutorService m_scheduler = Executors.newScheduledThreadPool(1);

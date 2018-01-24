@@ -3,7 +3,7 @@ package blok.gui;
 import blok.adapter.AdapterPoint;
 import blok.adapter.ISimulator;
 import blok.interfaces.abstractFactory.*;
-import blok.simulator.AdapterSimulator;
+import blok.simulator.Box2dSimulator;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -249,7 +249,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 					TexturePaint texturePaint = new TexturePaint(ImageIO.read(brick.getBrick()), rect);
 					g2d.setPaint(texturePaint);
 				} catch (IOException ex) {
-					Logger.getLogger(AdapterSimulator.class.getName()).log(Level.SEVERE, null, ex);
+					Logger.getLogger(Box2dSimulator.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			} else {
 				// Player
@@ -257,7 +257,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 					TexturePaint texturePaint = new TexturePaint(ImageIO.read(player.getPlayer()), rect);
 					g2d.setPaint(texturePaint);
 				} catch (IOException ex) {
-					Logger.getLogger(AdapterSimulator.class.getName()).log(Level.SEVERE, null, ex);
+					Logger.getLogger(Box2dSimulator.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			}
 			g2d.fill(rect);

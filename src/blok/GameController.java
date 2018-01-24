@@ -3,7 +3,7 @@ package blok;
 import blok.adapter.ISimulator;
 import blok.gui.MainPanel;
 import blok.interfaces.IGameController;
-import blok.simulator.AdapterSimulator;
+import blok.simulator.Box2dSimulator;
 
 public class GameController implements IGameController {
 	private static IGameController gameController = null;
@@ -20,7 +20,7 @@ public class GameController implements IGameController {
 
 	public void initialize() {
 		if (simulator == null)
-			simulator = AdapterSimulator.getInstance();
+			simulator = Box2dSimulator.getInstance();
 	}
 
 	public void run() {
