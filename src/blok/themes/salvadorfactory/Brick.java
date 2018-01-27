@@ -1,4 +1,4 @@
-package blok.salvadorfactory;
+package blok.themes.salvadorfactory;
 
 import java.io.File;
 

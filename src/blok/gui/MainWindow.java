@@ -116,11 +116,8 @@ public class MainWindow extends javax.swing.JFrame {
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void jMenusActionPerformed(java.awt.event.ActionEvent evt) {
-		System.out.println("Botão clicado");
 		this.factory = Core.getInstance().getPluginController().getClassFactory(evt.getActionCommand());
 		Core.getInstance().getUIController().getMainPanel().setFactory(this.factory);
-		System.out.println(factory);
-		// setFactory();
 	}
 
 	private void jRefreshActionPerformed(java.awt.event.ActionEvent evt) {

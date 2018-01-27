@@ -1,4 +1,4 @@
-package blok.defaultfactory;
+package blok.themes.defaultfactory;
 
 import java.io.File;
 

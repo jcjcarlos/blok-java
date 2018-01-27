@@ -9,8 +9,9 @@ import blok.interfaces.IPluginController;
 
 public class PluginController implements IPluginController {
 	private static IPluginController pluginController = null;
-	private String[] plugins;
-	private String nomeClasse = null;
+	private String[] pluginsThemes;
+	private String[] pluginsSimulators;
+	private String nameClasse = null;
 	private URLClassLoader ulc;
 	private IThemeFactory factory = null;
 
@@ -24,17 +25,18 @@ public class PluginController implements IPluginController {
 	}
 
 	public void initialize() {
-		loadPlugins();
+		loadThemePlugins();
 	}
 
 	@SuppressWarnings("deprecation")
-	private void loadPlugins() {
+	private void loadThemePlugins() {
 		try {
-			File currentDir = new File("./plugins");
-			this.plugins = currentDir.list();
-			URL[] jars = new URL[plugins.length];
-			for (int i = 0; i < plugins.length; i++) {
-				jars[i] = (new File("./plugins/" + this.plugins[i])).toURL();
+			File currentDir = new File("./plugins/themes");
+			this.pluginsThemes = currentDir.list();
+			URL[] jars = new URL[pluginsThemes.length];
+			for (int i = 0; i < pluginsThemes.length; i++) {
+				System.out.println(this.pluginsThemes[i]);
+				jars[i] = (new File("./plugins/themes/" + this.pluginsThemes[i])).toURL();
 			}
 			ulc = new URLClassLoader(jars);
 			setFactory();
@@ -45,22 +47,31 @@ public class PluginController implements IPluginController {
 
 	private void setFactory() {
 		try {
-			if (this.nomeClasse == null) {
-				this.nomeClasse = plugins[1].split("\\.")[0];
-				System.out.println(nomeClasse);
+			if (this.nameClasse == null) {
+				this.nameClasse = pluginsThemes[1].split("\\.")[0];
+				System.out.println(nameClasse);
 			}
 			this.factory = (IThemeFactory) Class
-					.forName("blok." + this.nomeClasse.toLowerCase() + "." + this.nomeClasse, true, ulc).newInstance();
+					.forName("blok." + this.nameClasse.toLowerCase() + "." + this.nameClasse, true, ulc).newInstance();
 		} catch (Exception e) {
 			System.out.println("Não encontrou plugins");
 			System.out.println(e);
 		}
 	}
+	
+	private void loadSimulatorPlugins() {
+		File currentDir = new File("./plugins/simulator");
+		this.pluginsSimulators = currentDir.list();
+		URL[] jars = new URL[this.pluginsSimulators.length];
+		//for(int i = 0;i < this.pluginsSimulators.length;i++)
+			//jars[i] = (new File("./plugins/simulators"))
+		
+	}
 
 	public IThemeFactory getClassFactory(String nome) {
-		for (int i = 0; i < this.plugins.length; i++)
-			if (plugins[i].split("\\.")[0].equalsIgnoreCase(nome))
-				this.nomeClasse = plugins[i].split("\\.")[0];
+		for (int i = 0; i < this.pluginsThemes.length; i++)
+			if (pluginsThemes[i].split("\\.")[0].equalsIgnoreCase(nome))
+				this.nameClasse = pluginsThemes[i].split("\\.")[0];
 		setFactory();
 		return this.factory;
 	}
@@ -71,6 +82,6 @@ public class PluginController implements IPluginController {
 	}
 
 	public String[] getClassName() {
-		return plugins;
+		return pluginsThemes;
 	}
 }

@@ -1,4 +1,4 @@
-package blok.salvadorfactory;
+package blok.themes.salvadorfactory;
 import blok.interfaces.abstractFactory.*;
 
 public class SalvadorFactory implements IThemeFactory {
