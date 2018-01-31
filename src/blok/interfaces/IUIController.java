@@ -1,7 +1,7 @@
 package blok.interfaces;
 
+import blok.gameController.Box2dSimulator;
 import blok.gui.MainPanel;
-import blok.simulator.Box2dSimulator;
 
 public interface IUIController {
 	public void initialize();

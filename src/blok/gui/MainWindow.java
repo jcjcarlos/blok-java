@@ -5,9 +5,11 @@
 package blok.gui;
 
 import blok.Core;
+import blok.gameController.Box2dSimulator;
 import blok.interfaces.abstractFactory.IThemeFactory;
-import blok.simulator.Box2dSimulator;
+
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -25,7 +27,8 @@ public class MainWindow extends javax.swing.JFrame {
 	 */
 	private MainWindow(MainPanel mainPanel) {
 		// loadPlugins();
-		this.plugins = Core.getInstance().getPluginController().getClassName();
+		this.pluginsThemes = Core.getInstance().getPluginController().getFactoriesNames();
+		this.pluginsSimulators = Core.getInstance().getPluginController().getSimulatorsNames();
 		initComponents();
 		Dimension size = new Dimension(1000, 600);
 
@@ -78,67 +81,85 @@ public class MainWindow extends javax.swing.JFrame {
 	// Code">//GEN-BEGIN:initComponents
 	private void initComponents() {
 
-		jMenuItem1 = new javax.swing.JMenuItem();
 		jMenuBar1 = new javax.swing.JMenuBar();
-		jMenu1 = new javax.swing.JMenu();
-		jMenu2 = new javax.swing.JMenu();
+		jMenu1 = new javax.swing.JMenu("Themes");
+		jMenu2 = new javax.swing.JMenu("Simulators");
+		jMenu3 = new javax.swing.JMenu("Options");
+		jMenuItems1 = new javax.swing.JMenuItem[this.pluginsThemes.length];
+		jMenuItems2 = new javax.swing.JMenuItem[this.pluginsSimulators.length];
+		jMenuItems3 = new javax.swing.JMenuItem[2];
+		jMenuBar1.add(jMenu1);
+		jMenuBar1.add(jMenu2);
+		jMenuBar1.add(jMenu3);
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
-		jMenu1.setText("Temas");
-		jMenuBar1.add(jMenu1);
-		jMenu2.setText("Opções");
-		jMenuBar1.add(jMenu2);
-		jMenuItem1.setText("Atualizar temas");
-		jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-			@Override
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jRefreshActionPerformed(evt);
-			}
-		});
-		jMenu2.add(jMenuItem1);
-
-		jMenuItems2 = new javax.swing.JMenuItem[this.plugins.length];
-		for (int i = 0; i < this.plugins.length; i++) {
-			jMenuItems2[i] = new javax.swing.JMenuItem();
-			jMenuItems2[i].setText(this.plugins[i].split("\\.")[0]);
-			jMenuItems2[i].addActionListener(new java.awt.event.ActionListener() {
+		for (int i = 0; i < this.pluginsThemes.length; i++) {
+			jMenuItems1[i] = new javax.swing.JMenuItem(this.pluginsThemes[i].split("\\.")[0]);
+			jMenuItems1[i].addActionListener(new java.awt.event.ActionListener() {
 				@Override
 				public void actionPerformed(java.awt.event.ActionEvent evt) {
 					jMenusActionPerformed(evt);
 				}
 			});
-			jMenu1.add(jMenuItems2[i]);
+			jMenu1.add(jMenuItems1[i]);
 		}
+
+		for (int i = 0; i < this.pluginsSimulators.length; i++) {
+			jMenuItems2[i] = new javax.swing.JMenuItem(this.pluginsSimulators[i].split("\\.")[0]);
+			jMenu2.add(jMenuItems2[i]);
+			jMenuItems2[i].addActionListener(new java.awt.event.ActionListener() {
+				@Override
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
+					jRefreshActionPerformed(evt);
+				}
+			});
+			jMenu2.add(jMenuItems2[i]);
+		}
+
+		for (int i = 0; i < 2; i++) {
+			jMenuItems3[i] = new javax.swing.JMenuItem();
+			jMenuItems3[i].addActionListener(new java.awt.event.ActionListener() {
+				@Override
+				public void actionPerformed(java.awt.event.ActionEvent evt) {
+					jRefreshActionPerformed(evt);
+				}
+			});
+			jMenu3.add(jMenuItems3[i]);
+		}
+
 		setJMenuBar(jMenuBar1);
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void jMenusActionPerformed(java.awt.event.ActionEvent evt) {
-		this.factory = Core.getInstance().getPluginController().getClassFactory(evt.getActionCommand());
+		this.factory = Core.getInstance().getPluginController().getFactory(evt.getActionCommand());
 		Core.getInstance().getUIController().getMainPanel().setFactory(this.factory);
 	}
 
 	private void jRefreshActionPerformed(java.awt.event.ActionEvent evt) {
 		// loadPlugins();
 		Core.getInstance().getPluginController().initialize();
-		this.plugins = Core.getInstance().getPluginController().getClassName();
+		this.pluginsThemes = Core.getInstance().getPluginController().getFactoriesNames();
 		initComponents();
 	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JMenu jMenu1;
 	private javax.swing.JMenu jMenu2;
+	private javax.swing.JMenu jMenu3;
 	private javax.swing.JMenuBar jMenuBar1;
-	private javax.swing.JMenuItem jMenuItem1;
+	private javax.swing.JMenuItem[] jMenuItems1;
 	private javax.swing.JMenuItem[] jMenuItems2;
+	private javax.swing.JMenuItem[] jMenuItems3;
 
 	// End of variables declaration//GEN-END:variables
 	private IThemeFactory factory = null;
 	private URLClassLoader ulc;
 	private MainPanel mainPanel;
 	private static MainWindow mainWindow = null;
-	String[] plugins;
+	String[] pluginsThemes;
+	String[] pluginsSimulators;
 	String nomeClasse;
 }

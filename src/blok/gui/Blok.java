@@ -4,7 +4,7 @@
  */
 package blok.gui;
 
-import blok.simulator.Box2dSimulator;
+import blok.gameController.Box2dSimulator;
 
 /**
  *

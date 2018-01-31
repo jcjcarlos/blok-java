@@ -1,10 +1,11 @@
 package blok;
 
+import blok.gameController.Box2dSimulator;
 import blok.gui.MainPanel;
 import blok.gui.MainWindow;
 import blok.interfaces.IUIController;
+import blok.interfaces.ISimulator;
 import blok.interfaces.abstractFactory.IThemeFactory;
-import blok.simulator.Box2dSimulator;
 
 public class UIController implements IUIController {
 	private static IUIController uIController = null;
@@ -21,18 +22,12 @@ public class UIController implements IUIController {
 	}
 
 	public void initialize() {
-		if (mainPanel == null) {
-			mainPanel = MainPanel.getInstance(Core.getInstance().getPluginController().getClassFactory());
-			// mainPanel.setSimulator(Core.getInstance().getGameController().getSimulator());
-		}
-		if (mainWindow == null) {
+			mainPanel = MainPanel.getInstance(Core.getInstance().getPluginController().getFactory());
 			mainWindow = MainWindow.getInstance(mainPanel);
 			mainWindow.setVisible(true);
-		}
 	}
 
 	public void run() {
-		if (mainPanel != null)
 			mainPanel.setSimulator(Core.getInstance().getGameController().getSimulator());
 	}
 

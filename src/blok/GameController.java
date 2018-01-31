@@ -1,9 +1,8 @@
 package blok;
 
-import blok.adapter.ISimulator;
-import blok.gui.MainPanel;
+import blok.gameController.Box2dSimulator;
 import blok.interfaces.IGameController;
-import blok.simulator.Box2dSimulator;
+import blok.interfaces.ISimulator;
 
 public class GameController implements IGameController {
 	private static IGameController gameController = null;
@@ -19,17 +18,16 @@ public class GameController implements IGameController {
 	}
 
 	public void initialize() {
-		if (simulator == null)
-			simulator = Box2dSimulator.getInstance();
+		simulator = Box2dSimulator.getInstance();
 	}
 
 	public void run() {
-		if (simulator != null)
-			simulator.setMainPanel(Core.getInstance().getUIController().getMainPanel());
+		simulator.setMainPanel(Core.getInstance().getUIController().getMainPanel());
 		simulator.init();
 	}
 
 	public ISimulator getSimulator() {
 		return this.simulator;
 	}
+
 }

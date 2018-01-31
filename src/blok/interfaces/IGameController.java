@@ -1,7 +1,6 @@
 package blok.interfaces;
 
-import blok.adapter.ISimulator;
-import blok.simulator.Box2dSimulator;
+import blok.gameController.Box2dSimulator;
 
 public interface IGameController {
 	public void initialize();

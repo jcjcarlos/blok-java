@@ -1,9 +1,10 @@
 package blok.gui;
 
-import blok.adapter.AdapterPoint;
-import blok.adapter.ISimulator;
+import blok.gameController.Box2dSimulator;
+import blok.gameController.AdapterPoint;
+import blok.interfaces.ISimulator;
 import blok.interfaces.abstractFactory.*;
-import blok.simulator.Box2dSimulator;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

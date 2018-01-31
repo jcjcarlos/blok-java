@@ -2,18 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package blok.simulator;
+package blok.gameController;
 
-import blok.adapter.AdapterPoint;
-import blok.adapter.ISimulator;
+import blok.gameController.AdapterPoint;
 import blok.gui.MainPanel;
+import blok.interfaces.ISimulator;
+
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.callbacks.ContactListener;
@@ -152,15 +151,21 @@ public class Box2dSimulator implements ISimulator, Runnable, ContactListener {
 	}
 
 	@Override
-	public void endContact(Contact cntct) {
+	public void endContact(Contact arg0) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	public void preSolve(Contact cntct, Manifold mnfld) {
+	public void postSolve(Contact arg0, ContactImpulse arg1) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
-	public void postSolve(Contact cntct, ContactImpulse ci) {
+	public void preSolve(Contact arg0, Manifold arg1) {
+		// TODO Auto-generated method stub
+
 	}
 
 	private static float PI = 3.14159265359f;
@@ -179,4 +184,5 @@ public class Box2dSimulator implements ISimulator, Runnable, ContactListener {
 	private ArrayList<AdapterPoint> m_points = new ArrayList<AdapterPoint>();
 	private Body m_player = null;
 	private Body m_ground = null;
+
 }
