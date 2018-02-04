@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package blok.gameController;
+package blok.simulators.box2dsimulators;
 
 import blok.gameController.AdapterPoint;
 import blok.gui.MainPanel;
@@ -26,16 +26,16 @@ import org.jbox2d.dynamics.contacts.Contact;
  *
  * @author sandroandrade
  */
-public class Box2dSimulator implements ISimulator, Runnable, ContactListener {
+public class Box2DSimulator implements ISimulator, Runnable, ContactListener {
 
-	private Box2dSimulator() {
+	public Box2DSimulator() {
 	}
 
-	public static Box2dSimulator getInstance() {
+	/*public static Box2DSimulator getInstance() {
 		if (simulator == null)
-			simulator = new Box2dSimulator();
+			simulator = new Box2DSimulator();
 		return simulator;
-	}
+	}*/
 
 	public void setMainPanel(MainPanel mainPanel) {
 		m_mainPanel = mainPanel;
@@ -173,7 +173,7 @@ public class Box2dSimulator implements ISimulator, Runnable, ContactListener {
 	private static int B2_VELOCITY_ITERATIONS = 8;
 	private static int B2_POSITION_ITERATIONS = 4;
 
-	private static Box2dSimulator simulator = null;
+	private static Box2DSimulator simulator = null;
 	private MainPanel m_mainPanel;
 
 	private final ScheduledExecutorService m_scheduler = Executors.newScheduledThreadPool(1);

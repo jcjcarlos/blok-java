@@ -1,6 +1,5 @@
 package blok.gui;
 
-import blok.gameController.Box2dSimulator;
 import blok.gameController.AdapterPoint;
 import blok.interfaces.ISimulator;
 import blok.interfaces.abstractFactory.*;
@@ -29,10 +28,7 @@ import org.jbox2d.dynamics.Body;
  * @author sandroandrade
  */
 public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyListener {
-	//
-	/**
-	 * Creates new form MainPanel
-	 */
+	
 	private MainPanel(IThemeFactory factory) {
 		this.factory = factory;
 		createProducts();
@@ -250,7 +246,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 					TexturePaint texturePaint = new TexturePaint(ImageIO.read(brick.getBrick()), rect);
 					g2d.setPaint(texturePaint);
 				} catch (IOException ex) {
-					Logger.getLogger(Box2dSimulator.class.getName()).log(Level.SEVERE, null, ex);
+					Logger.getLogger(ISimulator.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			} else {
 				// Player
@@ -258,7 +254,7 @@ public class MainPanel extends javax.swing.JPanel implements MouseListener, KeyL
 					TexturePaint texturePaint = new TexturePaint(ImageIO.read(player.getPlayer()), rect);
 					g2d.setPaint(texturePaint);
 				} catch (IOException ex) {
-					Logger.getLogger(Box2dSimulator.class.getName()).log(Level.SEVERE, null, ex);
+					Logger.getLogger(ISimulator.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			}
 			g2d.fill(rect);

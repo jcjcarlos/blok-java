@@ -5,7 +5,6 @@
 package blok.gui;
 
 import blok.Core;
-import blok.gameController.Box2dSimulator;
 import blok.interfaces.abstractFactory.IThemeFactory;
 
 import java.awt.Dimension;
@@ -100,7 +99,7 @@ public class MainWindow extends javax.swing.JFrame {
 			jMenuItems1[i].addActionListener(new java.awt.event.ActionListener() {
 				@Override
 				public void actionPerformed(java.awt.event.ActionEvent evt) {
-					jMenusActionPerformed(evt);
+					jThemesActionPerformed(evt);
 				}
 			});
 			jMenu1.add(jMenuItems1[i]);
@@ -108,11 +107,10 @@ public class MainWindow extends javax.swing.JFrame {
 
 		for (int i = 0; i < this.pluginsSimulators.length; i++) {
 			jMenuItems2[i] = new javax.swing.JMenuItem(this.pluginsSimulators[i].split("\\.")[0]);
-			jMenu2.add(jMenuItems2[i]);
 			jMenuItems2[i].addActionListener(new java.awt.event.ActionListener() {
 				@Override
 				public void actionPerformed(java.awt.event.ActionEvent evt) {
-					jRefreshActionPerformed(evt);
+					jSimulatorsActionPerformed(evt);
 				}
 			});
 			jMenu2.add(jMenuItems2[i]);
@@ -133,9 +131,14 @@ public class MainWindow extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
 
-	private void jMenusActionPerformed(java.awt.event.ActionEvent evt) {
-		this.factory = Core.getInstance().getPluginController().getFactory(evt.getActionCommand());
-		Core.getInstance().getUIController().getMainPanel().setFactory(this.factory);
+	private void jThemesActionPerformed(java.awt.event.ActionEvent evt) {
+		Core.getInstance().getUIController().getMainPanel().setFactory(Core.getInstance().getPluginController().
+																	   getFactory(evt.getActionCommand()));
+	}
+
+	private void jSimulatorsActionPerformed(java.awt.event.ActionEvent evt) {
+		Core.getInstance().getUIController().getMainPanel().setSimulator(Core.getInstance().getPluginController().
+																		 getSimulator(evt.getActionCommand()));
 	}
 
 	private void jRefreshActionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,8 +159,6 @@ public class MainWindow extends javax.swing.JFrame {
 
 	// End of variables declaration//GEN-END:variables
 	private IThemeFactory factory = null;
-	private URLClassLoader ulc;
-	private MainPanel mainPanel;
 	private static MainWindow mainWindow = null;
 	String[] pluginsThemes;
 	String[] pluginsSimulators;

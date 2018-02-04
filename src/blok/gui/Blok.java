@@ -4,8 +4,6 @@
  */
 package blok.gui;
 
-import blok.gameController.Box2dSimulator;
-
 /**
  *
  * @author sandroandrade

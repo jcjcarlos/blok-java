@@ -34,7 +34,7 @@ public class PluginController implements IPluginController {
 		try {
 			File currentDir = new File("./plugins/themes");
 			this.pluginsThemes = currentDir.list();
-			URL[] jars = new URL[pluginsThemes.length];
+			URL[] jars = new URL[this.pluginsThemes.length];
 			for (int i = 0; i < pluginsThemes.length; i++) {
 				jars[i] = (new File("./plugins/themes/" + this.pluginsThemes[i])).toURL();
 			}
@@ -73,8 +73,9 @@ public class PluginController implements IPluginController {
 			File currentDir = new File("./plugins/simulators");
 			this.pluginsSimulators = currentDir.list();
 			URL[] jars = new URL[this.pluginsSimulators.length];
-			for (int i = 0; i < this.pluginsSimulators.length; i++)
+			for (int i = 0; i < this.pluginsSimulators.length; i++) {
 				jars[i] = (new File("./plugins/simulators/" + this.pluginsSimulators[i])).toURL();
+			}
 			this.ulcSimulators = new URLClassLoader(jars);
 		} catch (Exception e) {
 			System.out.println(e);
@@ -84,21 +85,22 @@ public class PluginController implements IPluginController {
 
 	public ISimulator getSimulator(String nome) {
 		try {
-			for(int i = 0;i < this.pluginsSimulators.length;i++ )
-				if(this.pluginsSimulators[i].split("\\.")[0].equalsIgnoreCase(nome)){
+			for (int i = 0; i < this.pluginsSimulators.length; i++)
+				if (this.pluginsSimulators[i].split("\\.")[0].equalsIgnoreCase(nome)) {
 					String nameClass = this.pluginsSimulators[i].split("\\.")[0];
-					return (ISimulator) Class.forName(nameClass.toLowerCase()+"."+nameClass,true,this.ulcSimulators).newInstance();
+					return (ISimulator) Class.forName("blok.gameController." + nameClass, true, this.ulcSimulators)
+							.newInstance();
 				}
-		} catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return null;
 	}
-	
+
 	public ISimulator getSimulator() {
 		return getSimulator(this.pluginsSimulators[0].split("\\.")[0]);
 	}
-	
+
 	public String[] getSimulatorsNames() {
 		return this.pluginsSimulators;
 	}

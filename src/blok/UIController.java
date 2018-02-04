@@ -1,6 +1,5 @@
 package blok;
 
-import blok.gameController.Box2dSimulator;
 import blok.gui.MainPanel;
 import blok.gui.MainWindow;
 import blok.interfaces.IUIController;
